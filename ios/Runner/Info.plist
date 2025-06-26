@@ -51,5 +51,10 @@
 	<string>We need access to your photo library for cropping</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We need access to the camera for capturing receipts</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We use the camera to scan receipts.</string>
+
+<key>NSMicrophoneUsageDescription</key>
+<string>This app requires microphone access for camera functionality, even though we do not record audio.</string>
 </dict>
 </plist>

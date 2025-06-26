@@ -3,19 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
 
-class CameraOCRScreen extends StatefulWidget {
+class OCRScreen extends StatefulWidget {
   final List<CameraDescription> cameras;
 
-  const CameraOCRScreen({Key? key, required this.cameras}) : super(key: key);
+  const OCRScreen({Key? key, required this.cameras}) : super(key: key);
 
   @override
-  _CameraOCRScreenState createState() => _CameraOCRScreenState();
+  _OCRScreenState createState() => _OCRScreenState();
 }
 
-class _CameraOCRScreenState extends State<CameraOCRScreen> {
+class _OCRScreenState extends State<OCRScreen> {
   late CameraController _controller;
   bool _isCameraInitialized = false;
   String storeName = '';
@@ -33,6 +31,7 @@ class _CameraOCRScreenState extends State<CameraOCRScreen> {
       enableAudio: false,
     );
     _controller.initialize().then((_) {
+      if (!mounted) return;
       setState(() => _isCameraInitialized = true);
     });
   }
@@ -88,7 +87,6 @@ class _CameraOCRScreenState extends State<CameraOCRScreen> {
           }
         }
 
-
         if (tmpDate == null) {
           final dateMatch = RegExp(
             r'(2025|25)[./-](\w{1,2})[./-](\w{1,2})|(\w{1,2})[./-](\w{1,2})[./-](2025|25)'
@@ -126,7 +124,7 @@ class _CameraOCRScreenState extends State<CameraOCRScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('OCR 영수증 인식')),
+      appBar: AppBar(title: const Text('OCR 영수증 인식')),
       body: Column(
         children: [
           _isCameraInitialized
@@ -147,7 +145,7 @@ class _CameraOCRScreenState extends State<CameraOCRScreen> {
                   Text('결제 날짜: $paymentDate'),
                   Text('결제 장소: $paymentLocation'),
                   const SizedBox(height: 16),
-                  Text('전체 텍스트:'),
+                  const Text('전체 텍스트:'),
                   Text(rawText, style: const TextStyle(fontSize: 12, color: Colors.grey)),
                 ],
               ),
